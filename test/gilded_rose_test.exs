@@ -1,6 +1,27 @@
 defmodule GildedRoseTest do
   use ExUnit.Case
 
+  use ExUnitProperties
+
   test "begin the journey of refactoring" do
+    check all(item <- item()) do
+      assert GildedRose.update_item(item) == LegacyGildedRose.update_item(item)
+    end
+  end
+
+  defp item do
+    gen all(
+          quality <- integer(0..50),
+          sell_in <- integer(-1..13),
+          name <-
+            member_of([
+              "Whatever",
+              "Aged Brie",
+              "Backstage passes to a TAFKAL80ETC concert",
+              "Sulfuras, Hand of Ragnaros"
+            ])
+        ) do
+      %Item{name: name, sell_in: sell_in, quality: quality}
+    end
   end
 end
