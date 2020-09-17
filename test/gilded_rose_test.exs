@@ -5,7 +5,7 @@ defmodule GildedRoseTest do
 
   test "begin the journey of refactoring" do
     check all(item <- item()) do
-      assert GildedRose.update_item(item) == LegacyGildedRose.update_item(item)
+      assert LegacyGildedRose.update_item(item) == GildedRose.update_item(item)
     end
   end
 
